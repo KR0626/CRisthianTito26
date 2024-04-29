@@ -1,0 +1,57 @@
+import tkinter as tk
+from tkinter import messagebox
+
+class AgregarNombres(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("Agregar Nombres")
+        self.geometry("300x200")
+
+        self.nombre1_label = tk.Label(self, text="Nombre 1:")
+        self.nombre1_label.pack()
+        self.nombre1_entry = tk.Entry(self)
+        self.nombre1_entry.pack()
+
+        self.nombre2_label = tk.Label(self, text="Nombre 2:")
+        self.nombre2_label.pack()
+        self.nombre2_entry = tk.Entry(self)
+        self.nombre2_entry.pack()
+
+        self.agregar_button = tk.Button(self, text="Agregar", command=self.agregar_nombres)
+        self.agregar_button.pack()
+
+        self.nombres = set()
+
+    def agregar_nombres(self):
+        nombre1 = self.nombre1_entry.get().strip()
+        nombre2 = self.nombre2_entry.get().strip()
+
+        if len(nombre1) == 0 or len(nombre2) == 0:
+            messagebox.showerror("Error", "Por favor, introduce ambos nombres.")
+            return
+
+        if len(nombre1) > 10 or len(nombre2) > 10:
+            messagebox.showerror("Error", "Los nombres no pueden tener más de 10 caracteres.")
+            return
+
+        if nombre1 == nombre2:
+            messagebox.showerror("Error", "Los nombres no pueden ser iguales.")
+            return
+
+        if nombre1 in self.nombres or nombre2 in self.nombres:
+            messagebox.showerror("Error", "Los nombres ya existen.")
+            return
+
+        # Agregar los nombres
+        self.nombres.add(nombre1)
+        self.nombres.add(nombre2)
+
+        # Puedes imprimir o hacer lo que quieras con los nombres
+        print("Nombre 1:", nombre1)
+        print("Nombre 2:", nombre2)
+
+        messagebox.showinfo("Éxito", "Nombres agregados correctamente.")
+
+if __name__ == "__main__":
+    app = AgregarNombres()
+    app.mainloop()
