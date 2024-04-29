@@ -45,20 +45,19 @@ def pantalla_jug():
     columna_label= ttk.Label(text="Columna", padding= 5, background="green", font="Arial")
     columna_label.place(x=320,y=380)
 
-    fila_entry=ttk.Entry(background="green", justify="center", font=("Arial", 14))
-    fila_entry.place(x=150, y=380, width=150, height=30)
-    columna_entry=ttk.Entry(background="green", justify="center", font=("Arial", 14))
-    columna_entry.place(x=430, y=380, width=150, height=30)
-
     Namejug1 = ttk.Entry(background="green", justify="center", font=("Arial", 14))
     Nickjug1 = ttk.Entry(background="green", justify="center", font=("Arial", 14))
     Namejug2 = ttk.Entry(background="green", justify="center", font=("Arial", 14))
     Nickjug2 = ttk.Entry(background="green", justify="center", font=("Arial", 14))
+    fila_entry=ttk.Entry(background="green", justify="center", font=("Arial", 14))
+    columna_entry=ttk.Entry(background="green", justify="center", font=("Arial", 14))
 
     Namejug1.place(x=150, y=280, width=150, height=30)
     Nickjug1.place(x=150, y=330, width=150, height=30)
     Namejug2.place(x=430, y=280,width=150, height=30)
     Nickjug2.place(x=430, y=330,width=150, height=30)
+    fila_entry.place(x=150, y=380, width=150, height=30)
+    columna_entry.place(x=430, y=380, width=150, height=30)
 
     # Botón para iniciar el juego
     Aceptar = ttk.Button(text="INICIO", command=validar, padding=5)
@@ -68,24 +67,21 @@ def pantalla_jug():
 
 # Función para validar la entrada del usuario y comenzar el juego
 def validar():
-    global Namejug1, Nickjug1, Namejug2, Nickjug2, DicJugadores, dicmatriz 
+    global Namejug1, Nickjug1, Namejug2, Nickjug2, DicJugadores, dicmatriz, fila, columna
     DicJugadores = {} 
     dicmatriz = {}
     # Variables para el tamaño de la matriz del juego
-    while True:
-        try:
-            fila = int(fila_entry)
-            columna=int(columna_entry)
-            if fila < 10 or columna < 20:
-                messagebox.showinfo("La matriz dada es muy pequeña, por favor hágala más grande.")
-            elif fila > 18 or columna > 26:
-                messagebox.showinfo("La matriz dada es demasiado grande, por favor hágala más pequeña.")
-            elif columna % 2 != 0:
-                messagebox.showinfo("Por favor, ingrese un número par de columnas.")
-            else:
-                break
-        except ValueError:
-            messagebox.showerror("DIguite un número valido")
+    try:
+        fila = int(fila_entry.get())
+        columna=int(columna_entry.get())
+        if fila < 10 or columna < 20:
+            messagebox.showinfo("La matriz dada es muy pequeña, por favor hágala más grande.")
+        elif fila > 18 or columna > 26:
+            messagebox.showinfo("La matriz dada es demasiado grande, por favor hágala más pequeña.")
+        elif columna % 2 != 0:
+            messagebox.showinfo("Por favor, ingrese un número par de columnas.")
+    except ValueError:
+        messagebox.showerror("DIguite un número valido")
 
     # Guardar información de jugadores y tamaño de la matriz en archivos de texto
     DicJugadores.update({"Jug1": Namejug1.get(), "NN1": Nickjug1.get(), "Jug2": Namejug2.get(), "NN2": Nickjug2.get()})
@@ -260,28 +256,28 @@ def accion_boton(x, y):
         if cont_nave3 > 0:
             if selected_orientation == "izquierda":
                 if y-1 >= 0 and y+1 < len(matriz_juego[x]):
-                    if matriz_juego[x][y].cget("image") == "" and matriz_juego[x][y-1].cget("image") == "" and matriz_juego[x][y+1].cget("image") == "":
+                    if matriz_juego[x][y].cget("image") == "" and matriz_juego[x][y-1].cget("image") == "" and matriz_juego[x][y+1].cget("
                         matriz_juego[x][y].config(image=nave32)
                         matriz_juego[x][y+1].config(image=nave33)
                         matriz_juego[x][y-1].config(image=nave31)
                         cont_nave3 -= 1
             elif selected_orientation == "Arriba":
                 if x-1 >= 0 and x+1 < len(matriz_juego) and y < len(matriz_juego[x]):
-                    if matriz_juego[x][y].cget("image") == "" and matriz_juego[x-1][y].cget("image") == "" and matriz_juego[x+1][y].cget("image") == "":
+                    if matriz_juego[x][y].cget("image") == "" and matriz_juego[x-1][y].cget("image") == "" and matriz_juego[x+1][y].cget("
                         matriz_juego[x][y].config(image=arnave32)
                         matriz_juego[x+1][y].config(image=arnave33)
                         matriz_juego[x-1][y].config(image=arnave31)
                         cont_nave3 -= 1
             elif selected_orientation == "Abajo":
                 if x-1 >= 0 and x+1 < len(matriz_juego) and y < len(matriz_juego[x]):
-                    if matriz_juego[x][y].cget("image") == "" and matriz_juego[x-1][y].cget("image") == "" and matriz_juego[x+1][y].cget("image") == "":
+                    if matriz_juego[x][y].cget("image") == "" and matriz_juego[x-1][y].cget("image") == "" and matriz_juego[x+1][y].cget("
                         matriz_juego[x][y].config(image=abnave32)
                         matriz_juego[x+1][y].config(image=abnave31) 
                         matriz_juego[x-1][y].config(image=abnave33)   
                         cont_nave3-=1
             elif selected_orientation == "Derecha":
                 if y-1 >= 0 and y+1 < len(matriz_juego[x]):
-                    if matriz_juego[x][y].cget("image") == "" and matriz_juego[x][y-1].cget("image") == "" and matriz_juego[x][y+1].cget("image") == "":
+                    if matriz_juego[x][y].cget("image") == "" and matriz_juego[x][y-1].cget("image") == "" and matriz_juego[x][y+1].cget("
                         matriz_juego[x][y].config(image=dnave32)
                         matriz_juego[x][y-1].config(image=dnave33)
                         matriz_juego[x][y+1].config(image=dnave31)
@@ -390,6 +386,4 @@ if __name__ == "__main__":
             cont_nave1 = 6
             cont_nave2 = 4
             cont_nave3 = 2
-            fil= dicmatriz["filas"]
-            col = dicmatriz["columnas"]
-            main(fil,col)
+            main()
